@@ -25,7 +25,7 @@ const HelloWorldIntentHandler = {
             && Alexa.getIntentName(handlerInput.requestEnvelope) === 'HelloWorldIntent';
     },
     handle(handlerInput) {
-        const speakOutput = 'Hello World!';
+        const speakOutput = 'Ohaio senpai, como posso lhe ajudar?';
 
         return handlerInput.responseBuilder
             .speak(speakOutput)
@@ -49,13 +49,44 @@ const AnimeIntentHandler = {
     }
 };
 
+const MangaIntentHandler = {
+    canHandle(handlerInput) {
+        return Alexa.getRequestType(handlerInput.requestEnvelope) === 'IntentRequest'
+            && Alexa.getIntentName(handlerInput.requestEnvelope) === 'MangaIntent';
+    },
+    handle(handlerInput) {
+        const speakOutput = 'Esse mangá é muito bom!';
+
+        return handlerInput.responseBuilder
+            .speak(speakOutput)
+            //.reprompt('add a reprompt if you want to keep the session open for the user to respond')
+            .getResponse();
+    }
+};
+
+
+const DoubtsIntentHandler = {
+    canHandle(handlerInput) {
+        return Alexa.getRequestType(handlerInput.requestEnvelope) === 'IntentRequest'
+            && Alexa.getIntentName(handlerInput.requestEnvelope) === 'DoubtsIntent';
+    },
+    handle(handlerInput) {
+        const speakOutput = 'Peguei sua dúvida';
+
+        return handlerInput.responseBuilder
+            .speak(speakOutput)
+            //.reprompt('add a reprompt if you want to keep the session open for the user to respond')
+            .getResponse();
+    }
+};
+
 const HelpIntentHandler = {
     canHandle(handlerInput) {
         return Alexa.getRequestType(handlerInput.requestEnvelope) === 'IntentRequest'
             && Alexa.getIntentName(handlerInput.requestEnvelope) === 'AMAZON.HelpIntent';
     },
     handle(handlerInput) {
-        const speakOutput = 'You can say hello to me! How can I help?';
+        const speakOutput = 'Você pode me perguntar coisas sobre animes e mangás, precisa de ajuda?';
 
         return handlerInput.responseBuilder
             .speak(speakOutput)
@@ -71,7 +102,7 @@ const CancelAndStopIntentHandler = {
                 || Alexa.getIntentName(handlerInput.requestEnvelope) === 'AMAZON.StopIntent');
     },
     handle(handlerInput) {
-        const speakOutput = 'Goodbye!';
+        const speakOutput = 'Saionará!';
 
         return handlerInput.responseBuilder
             .speak(speakOutput)
@@ -89,7 +120,7 @@ const FallbackIntentHandler = {
             && Alexa.getIntentName(handlerInput.requestEnvelope) === 'AMAZON.FallbackIntent';
     },
     handle(handlerInput) {
-        const speakOutput = 'Sorry, I don\'t know about that. Please try again.';
+        const speakOutput = 'Me desculpe senpai... não entendi o que você disse. Por favor, tente novamente.';
 
         return handlerInput.responseBuilder
             .speak(speakOutput)
@@ -165,7 +196,9 @@ exports.handler = Alexa.SkillBuilders.custom()
         CancelAndStopIntentHandler,
         FallbackIntentHandler,
         SessionEndedRequestHandler,
-        IntentReflectorHandler)
+        IntentReflectorHandler,
+        MangaIntentHandler,
+        DoubtsIntentHandler)
     .addErrorHandlers(
         ErrorHandler)
     .withCustomUserAgent('sample/hello-world/v1.2')
