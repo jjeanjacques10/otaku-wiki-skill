@@ -4,6 +4,7 @@
  * session persistence, api calls, and more.
  * */
 const Alexa = require('ask-sdk-core');
+const axios = require('axios');
 
 const LaunchRequestHandler = {
     canHandle(handlerInput) {
@@ -40,7 +41,9 @@ const AnimeIntentHandler = {
             && Alexa.getIntentName(handlerInput.requestEnvelope) === 'AnimeIntent';
     },
     handle(handlerInput) {
-        const speakOutput = 'Anime ou animê, como é dito no Brasil, é o nome dado para o tipo de desenho animado produzido no Japão.';
+        const anime = handlerInput.requestEnvelope.request.intent.slots.anime.value;
+
+        const speakOutput = 'O anime ' + anime + ' é bem legal!';
 
         return handlerInput.responseBuilder
             .speak(speakOutput)
@@ -55,7 +58,9 @@ const MangaIntentHandler = {
             && Alexa.getIntentName(handlerInput.requestEnvelope) === 'MangaIntent';
     },
     handle(handlerInput) {
-        const speakOutput = 'Esse mangá é muito bom!';
+        const manga = handlerInput.requestEnvelope.request.intent.slots.manga.value;
+
+        const speakOutput = 'O manga ' + manga + ' é bem legal!';
 
         return handlerInput.responseBuilder
             .speak(speakOutput)
