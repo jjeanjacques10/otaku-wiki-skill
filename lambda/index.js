@@ -41,7 +41,7 @@ const AnimeIntentHandler = {
         return Alexa.getRequestType(handlerInput.requestEnvelope) === 'IntentRequest'
             && Alexa.getIntentName(handlerInput.requestEnvelope) === 'AnimeIntent';
     },
-    handle(handlerInput) {
+    async handle(handlerInput) {
         const anime = handlerInput.requestEnvelope.request.intent.slots.anime.value;
         let speakOutput = 'Desculpe, não sei sobre o anime ' + anime;
 
