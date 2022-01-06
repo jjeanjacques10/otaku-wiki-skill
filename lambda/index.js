@@ -46,7 +46,7 @@ const AnimeIntentHandler = {
         let speakOutput = 'Desculpe, não sei sobre o anime ' + anime;
 
         try {
-            const result = await axios.get('https://mangajj.herokuapp.com/manga?title=' + manga);
+            const result = await axios.get('https://mangajj.herokuapp.com/manga?title=' + anime);
             const synopsis = result.data[0].synopsis;
             const result_translated = await translatte(synopsis, { from: 'en', to: 'pt' })
             speakOutput = 'Sobre o anime ' + anime + ' eu sei que ' + result_translated.text;
