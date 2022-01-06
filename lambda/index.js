@@ -5,6 +5,7 @@
  * */
 const Alexa = require('ask-sdk-core');
 const axios = require('axios');
+const translatte = require('translatte');
 
 const LaunchRequestHandler = {
     canHandle(handlerInput) {
@@ -42,8 +43,16 @@ const AnimeIntentHandler = {
     },
     handle(handlerInput) {
         const anime = handlerInput.requestEnvelope.request.intent.slots.anime.value;
+        let speakOutput = 'Desculpe, não sei sobre o anime ' + anime;
 
-        const speakOutput = 'O anime ' + anime + ' é bem legal!';
+        try {
+            const result = await axios.get('https://mangajj.herokuapp.com/manga?title=' + manga);
+            const synopsis = result.data[0].synopsis;
+            const result_translated = await translatte(synopsis, { from: 'en', to: 'pt' })
+            speakOutput = 'Sobre o anime ' + anime + ' eu sei que ' + result_translated.text;
+        } catch (e) {
+            console.error(e);
+        }
 
         return handlerInput.responseBuilder
             .speak(speakOutput)
@@ -60,7 +69,16 @@ const MangaIntentHandler = {
     handle(handlerInput) {
         const manga = handlerInput.requestEnvelope.request.intent.slots.manga.value;
 
-        const speakOutput = 'O manga ' + manga + ' é bem legal!';
+        let speakOutput = 'Desculpe, não sei sobre o mangá ' + manga;
+
+        try {
+            const result = await axios.get('https://mangajj.herokuapp.com/manga?title=' + manga);
+            const synopsis = result.data[0].synopsis;
+            const result_translated = await translatte(synopsis, { from: 'en', to: 'pt' })
+            speakOutput = 'Sobre o mangá ' + manga + ' eu sei que ' + result_translated.text;
+        } catch (e) {
+            console.error(e);
+        }
 
         return handlerInput.responseBuilder
             .speak(speakOutput)
