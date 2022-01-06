@@ -66,7 +66,7 @@ const MangaIntentHandler = {
         return Alexa.getRequestType(handlerInput.requestEnvelope) === 'IntentRequest'
             && Alexa.getIntentName(handlerInput.requestEnvelope) === 'MangaIntent';
     },
-    handle(handlerInput) {
+    async handle(handlerInput) {
         const manga = handlerInput.requestEnvelope.request.intent.slots.manga.value;
 
         let speakOutput = 'Desculpe, não sei sobre o mangá ' + manga;
