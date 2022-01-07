@@ -49,7 +49,7 @@ const AnimeIntentHandler = {
             const title = result.data[0].title;
             const synopsis = result.data[0].synopsis;
             const result_translated = await translatte(synopsis, { from: 'en', to: 'pt' })
-            
+
             let speakOutput = 'Sobre o anime ' + title + ' eu sei que ' + result_translated.text;
             return handlerInput.responseBuilder
                 .speak(speakOutput)
@@ -81,14 +81,18 @@ const MangaIntentHandler = {
             const synopsis = result.data[0].synopsis;
             const result_translated = await translatte(synopsis, { from: 'en', to: 'pt' })
             speakOutput = 'Sobre o mangá ' + manga + ' eu sei que ' + result_translated.text;
+            return handlerInput.responseBuilder
+                .speak(speakOutput)
+                .reprompt(`Gostou? Pesquise outro mangá ou anime`)
+                .getResponse();
         } catch (e) {
             console.error(e);
+            let speakOutput = `Não consegui entender ${manga}, pode repetir?`;
+            return handlerInput.responseBuilder
+                .speak(speakOutput)
+                .reprompt(speakOutput)
+                .getResponse();
         }
-
-        return handlerInput.responseBuilder
-            .speak(speakOutput)
-             //.reprompt('add a reprompt if you want to keep the session open for the user to respond')
-            .getResponse();
     }
 };
 
