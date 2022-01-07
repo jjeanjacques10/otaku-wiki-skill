@@ -59,7 +59,7 @@ const AnimeIntentHandler = {
             let speakOutput = `Não consegui entender ${anime}, pode repetir?`;
             return handlerInput.responseBuilder
                 .speak(speakOutput)
-                .reprompt(speakOutput)
+                .reprompt(`Gostou? Pesquise outro mangá ou anime`)
                 .getResponse();
         }
     }
