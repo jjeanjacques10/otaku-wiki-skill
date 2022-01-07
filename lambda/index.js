@@ -53,13 +53,14 @@ const AnimeIntentHandler = {
             let speakOutput = 'Sobre o anime ' + title + ' eu sei que ' + result_translated.text;
             return handlerInput.responseBuilder
                 .speak(speakOutput)
+                .reprompt(`Gostou? Pesquise outro mangá ou anime`)
                 .getResponse();
         } catch (e) {
             console.error(e);
             let speakOutput = `Não consegui entender ${anime}, pode repetir?`;
             return handlerInput.responseBuilder
                 .speak(speakOutput)
-                .reprompt(`Gostou? Pesquise outro mangá ou anime`)
+                .reprompt(speakOutput)
                 .getResponse();
         }
     }
